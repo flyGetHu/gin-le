@@ -11,8 +11,8 @@ import (
 
 func main() {
 	gin.SetMode(gin.DebugMode)
-	//gin.DisableConsoleColor()
-	gin.ForceConsoleColor()
+	gin.DisableConsoleColor()
+	//gin.ForceConsoleColor()
 	logPathRoot := "./logs/"
 	if _, err := os.Stat(logPathRoot); os.IsNotExist(err) {
 		err := os.MkdirAll(logPathRoot, 0777)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/smallnest/rpcx/client"
 	"log"
 	"model"
 	"rpcx-client/rpcx_client"
@@ -15,13 +16,13 @@ func main() {
 	}
 
 	reply := &model.Reply{}
+	calls := make(chan *client.Call, 1)
 	for {
-		call, err := rpcx_client.RpcxClient().Go(context.Background(), "Mul", args, reply, nil)
+		_, err := rpcx_client.RpcxClient().Go(context.Background(), "Mul", args, reply, calls)
 		if err != nil {
 			log.Fatalf("failed to call: %v", err)
 		}
-
-		replyCall := <-call.Done
+		replyCall := <-calls
 		if replyCall.Error != nil {
 			log.Fatalf("failed to call: %v", replyCall.Error)
 		} else {
