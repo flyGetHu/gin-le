@@ -35,7 +35,11 @@ func main() {
 	//初始化路由
 
 	router.GET("/v1/warehouse/page", func(context *gin.Context) {
-		page := service.Page()
+		page, err := service.Page()
+		if err != nil {
+			context.JSON(http.StatusOK, entity.Result{}.Error(err.Error()))
+			return
+		}
 		context.JSON(http.StatusOK, entity.Result{}.Ok(page))
 	})
 
