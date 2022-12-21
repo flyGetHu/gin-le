@@ -1,14 +1,13 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"gorm-le/entity"
-	"gorm-le/service"
+	"gorm-le/route"
 	"io"
 	"log"
-	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -33,16 +32,7 @@ func main() {
 
 	router.MaxMultipartMemory = 8 << 32
 	//初始化路由
-
-	router.GET("/v1/warehouse/page", func(context *gin.Context) {
-		page, err := service.Page()
-		if err != nil {
-			context.JSON(http.StatusOK, entity.Result{}.Error(err.Error()))
-			return
-		}
-		context.JSON(http.StatusOK, entity.Result{}.Ok(page))
-	})
-
+	route.Init(router)
 	log.Println("启动服务器成功:8081")
 	err = router.Run(":8081")
 	if err != nil {
