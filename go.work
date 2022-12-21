@@ -6,4 +6,5 @@ use (
 	config
 	rpcx-service
 	rpcx-client
+	gorm-le
 )
