@@ -22,11 +22,11 @@ type IPage interface {
 }
 
 type Page struct {
-	total   int64       // 总的记录数
-	size    int64       // 每页显示的大小
-	current int64       // 当前页
+	Total   int64       `json:"total"`   // 总的记录数
+	Size    int64       `json:"size"`    // 每页显示的大小
+	Current int64       `json:"current"` // 当前页
 	orders  []OrderItem // 排序条件
-	Records interface{} // 查询数据列表
+	Records interface{} `json:"records"` // 查询数据列表
 
 }
 
@@ -39,27 +39,27 @@ func (page *Page) SetRecords(records interface{}) {
 }
 
 func (page *Page) GetTotal() int64 {
-	return page.total
+	return page.Total
 }
 
 func (page *Page) SetTotal(total int64) {
-	page.total = total
+	page.Total = total
 
 }
 
 func (page *Page) GetCurrent() int64 {
-	return page.current
+	return page.Current
 }
 
 func (page *Page) SetCurrent(current int64) {
-	page.current = current
+	page.Current = current
 }
 
 func (page *Page) GetSize() int64 {
-	return page.size
+	return page.Size
 }
 func (page *Page) SetSize(size int64) {
-	page.size = size
+	page.Size = size
 
 }
 
@@ -99,7 +99,7 @@ func (page *Page) GetPages() int64 {
 		return 0
 	}
 	pages := page.GetTotal() / page.GetSize()
-	if page.GetTotal()%page.size != 0 {
+	if page.GetTotal()%page.Size != 0 {
 		pages++
 	}
 
@@ -136,5 +136,5 @@ func BuildDescs(columns ...string) []OrderItem {
 }
 
 func NewPage(size, current int64, orderItems ...OrderItem) *Page {
-	return &Page{size: size, current: current, orders: orderItems}
+	return &Page{Size: size, Current: current, orders: orderItems}
 }

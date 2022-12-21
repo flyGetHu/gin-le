@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"gorm-le/entity"
 	"gorm-le/service"
 	"io"
 	"log"
@@ -35,7 +36,7 @@ func main() {
 
 	router.GET("/v1/warehouse/page", func(context *gin.Context) {
 		page := service.Page()
-		context.JSON(http.StatusOK, page)
+		context.JSON(http.StatusOK, entity.Result{}.Ok(page))
 	})
 
 	log.Println("启动服务器成功:8081")
